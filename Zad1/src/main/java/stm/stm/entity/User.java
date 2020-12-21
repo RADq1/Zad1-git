@@ -2,6 +2,7 @@ package stm.stm.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,10 +21,10 @@ public class User {
     private String email;
     @Column
     private String password;
-    @Column
-    private Boolean status = false; // z automatu false
-    @Column
-    private LocalDateTime registrationDateTime = LocalDateTime.now(); //aktualna data
+    @Column(columnDefinition = "boolean default false")
+    private Boolean status; // z automatu false
+    @Column(columnDefinition="timestamp default CURRENT_TIMESTAMP")
+    private Timestamp registrationDateTime; //aktualna data
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(                                           // adnotacja tworzy tabelkę relacji
@@ -36,7 +37,7 @@ public class User {
     public User() {
     }
 
-    public User(String name, String lastName, String email, String password, LocalDateTime registrationDateTime, boolean status) {
+    public User(String name, String lastName, String email, String password, Timestamp registrationDateTime, boolean status) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -93,11 +94,11 @@ public class User {
         this.status = status;
     }
 
-    public LocalDateTime getRegistrationDateTime() {
+    public Timestamp getRegistrationDateTime() {
         return registrationDateTime;
     }
 
-    public void setRegistrationDateTime(LocalDateTime registrationDateTime) {
+    public void setRegistrationDateTime(Timestamp registrationDateTime) {
         this.registrationDateTime = registrationDateTime;
     }
 }

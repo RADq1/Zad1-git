@@ -1,9 +1,10 @@
 package stm.stm.entity;
 
+        import stm.stm.enums.status;
         import stm.stm.enums.type;
 
         import javax.persistence.*;
-        import java.lang.reflect.Type;
+        import java.sql.Timestamp;
         import java.time.LocalDateTime;
 
 @Entity
@@ -17,11 +18,13 @@ public class Task {
     private String title;
     @Column
     private String description;
+    @Column(columnDefinition="timestamp default CURRENT_TIMESTAMP")
+    private Timestamp dateAdded;
     @Column
-    private LocalDateTime dateAdded = LocalDateTime.now();
-    @Column
+    @Enumerated(EnumType.STRING)
     private stm.stm.enums.type type;
     @Column
+    @Enumerated(EnumType.STRING)
     private stm.stm.enums.status status;
 
 }
