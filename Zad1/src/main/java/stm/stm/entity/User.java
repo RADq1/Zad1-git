@@ -1,8 +1,11 @@
 package stm.stm.entity;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,20 +27,21 @@ public class User {
     @Column(columnDefinition = "boolean default false")
     private Boolean status; // z automatu false
     @Column(columnDefinition="timestamp default CURRENT_TIMESTAMP")
-    private Timestamp registrationDateTime; //aktualna data
+   // private Timestamp registrationDateTime; //aktualna data
+    private LocalDateTime registrationDateTime; //aktualna data
 
-    @OneToMany(fetch = FetchType.EAGER)
+    /*@OneToMany(fetch = FetchType.EAGER)
     @JoinTable(                                           // adnotacja tworzy tabelkę relacji
             name = "users_to_task",                            // nazwa tabeli
             joinColumns = @JoinColumn(name = "userId"),        // FK z tab users
             inverseJoinColumns = @JoinColumn(name = "taskId")  // FK z tab roles
     )
-    private Set<Task> tasks = new HashSet<>();
+    private Set<Task> tasks = new HashSet<>();*/
 
     public User() {
     }
 
-    public User(String name, String lastName, String email, String password, Timestamp registrationDateTime, boolean status) {
+    public User(String name, String lastName, String email, String password, LocalDateTime registrationDateTime, boolean status) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -94,11 +98,19 @@ public class User {
         this.status = status;
     }
 
-    public Timestamp getRegistrationDateTime() {
+    public LocalDateTime getRegistrationDateTime() {
         return registrationDateTime;
     }
 
-    public void setRegistrationDateTime(Timestamp registrationDateTime) {
+    public void setRegistrationDateTime(LocalDateTime registrationDateTime) {
         this.registrationDateTime = registrationDateTime;
     }
+
+   /* public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    } */
 }
