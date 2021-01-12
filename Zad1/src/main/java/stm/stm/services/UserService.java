@@ -20,17 +20,17 @@ public class UserService {
     @Autowired
     private TaskRepository taskRepository;
 
-    //podpunkt a
+    //a
     public User insertUser(User user) {
         return userRepository.save(user);
     }
 
-    //podpunkt b
+    //b
     public List<User> selectUsers() {
         return userRepository.findAll();
     }
 
-    //podpunkt c
+    //c
     public List<User> getUserByEmailOrId(Integer userId, String email) {
         return userRepository.findByUserIdOrEmail(userId,email);
     }
@@ -38,7 +38,7 @@ public class UserService {
     public Optional<User> getUserById(int userId) {
         return userRepository.findById(userId);
     }
-    //podpunkt d
+    //d
     public boolean activateUser(int userId){
 
         Optional<User> userOptional = getUserById(userId);
@@ -55,7 +55,7 @@ public class UserService {
 
     }
 
-    //podpunkt e
+    //e
     public boolean deleteUserById(int userId){
         Optional<User> optionalUser = userRepository.findById(userId);
         if(optionalUser.isPresent()) {

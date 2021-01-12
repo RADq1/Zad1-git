@@ -20,23 +20,29 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TaskService {
     @Autowired
     TaskRepository taskRepository;
-    //podpunkt g
-    public List<Task> selectTasks(){
-        return taskRepository.findAll(Sort.by(Sort.Direction.DESC, "dateAdded"));
-    }
-    //podpunkt h
-    public List<Task> getTaskByTytleOrStatusOrType(String title,  type type, status status) {
-        return taskRepository.findByTitleOrStatusOrType(title,type,status);
-    }
-    //podpunkt f
+    //f
     public Task createTask(Task task) {
         return taskRepository.save(task);
     }
     public Optional<Task> getTaskById(int taskId){
         return  taskRepository.findById(taskId);
     }
+    //g
+    public List<Task> selectTasks(){
+        return taskRepository.findAll(Sort.by(Sort.Direction.DESC, "dateAdded"));
+    }
+    //h
+    public List<Task> getTaskByTytleOrStatusOrType(String title,  type type, status status) {
+        return taskRepository.findByTitleOrStatusOrType(title,type,status);
+    }
 
-    //podpunkt j
+    //i
+    public Task changeTaskStatus(int taskId, status status) {
+        Task task = taskRepository.findByTaskId(taskId);
+        task.setStatus(status);
+        return taskRepository.save(task);
+    }
+    //j
     public boolean deleteTaskById(int taskId){
         AtomicBoolean isDeleted = new AtomicBoolean(false);
         getTaskById(taskId).ifPresent(user -> {
@@ -45,12 +51,7 @@ public class TaskService {
         });
         return isDeleted.get();
     }
-    //podpunkt i
-    public Task changeTaskStatus(int taskId, status status) {
-        Task task = taskRepository.findByTaskId(taskId);
-        task.setStatus(status);
-        return taskRepository.save(task);
-    }
+
 
 
 }
